@@ -1,0 +1,8 @@
+work/
+*.wlf
+transcript
+vsim.wlf
+*.vstf
+.DS_Store
+Thumbs.db
+.vscode/

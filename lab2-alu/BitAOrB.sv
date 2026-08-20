@@ -1,0 +1,65 @@
+`timescale 1ns/1ps
+module BitAOrB(
+	input logic [63:0] A, B,
+	output logic [63:0] result,
+	output logic zero, negative	
+);
+
+	generate 
+		genvar i;
+		for(i = 0; i < 64; i = i + 1)begin : loop 
+			assign result[i] = A[i] | B[i];
+		end
+	endgenerate
+
+	assign negative = result[63];			 //negative case
+	isZero test(.in(result), .out(zero));//zero case
+
+endmodule
+
+module BitAOrB_tb();
+	
+	parameter delay = 100000;
+	logic 				clk;
+	logic		[63:0]	A, B;
+	logic		[2:0]		cntrl;
+	logic		[63:0]	result;
+	logic					negative, zero, overflow, carry_out ; 
+
+	parameter ALU_PASS_B=3'b000, ALU_ADD=3'b010, ALU_SUBTRACT=3'b011, ALU_AND=3'b100, ALU_OR=3'b101, ALU_XOR=3'b110;
+	
+
+	BitAOrB dut (.A, .B, .result, .zero, .negative);
+
+	
+	// Clock setup
+	parameter clock_period = 200000;
+
+	initial begin
+		clk = 0;
+		forever #(clock_period / 2) clk <= ~clk;	
+	end 
+	
+
+	initial begin
+		
+	
+		
+		A = 64'd1;
+		B = 64'd1;
+		
+		@(posedge clk);
+		
+		A = 64'd123;
+		B = 64'd1;
+		
+		@(posedge clk);
+		
+		A = 64'd143;
+		B = 64'd13;
+		
+		@(posedge clk);
+		$stop;
+		
+	end
+endmodule
