@@ -29,8 +29,8 @@ A 64-bit ALU (`alu.sv`) selecting among sub-block results with an 8:1 mux
 cells with an `isSUB`-controlled B-invert/carry-in), plus bitwise AND/OR/XOR
 sub-blocks and `isZero.sv` for the zero flag. Each sub-block packs its own
 zero/negative flags alongside its result, and the mux selects the winning
-slice. See [Known limitations](#known-limitations) for a real bug in this
-lab's OR sub-block wiring.
+slice. See [Known limitations / next steps](#known-limitations--next-steps)
+for a real bug in this lab's OR sub-block wiring.
 
 ### `lab3-single-cycle-cpu/`
 
@@ -53,8 +53,8 @@ covering EX-EX and MEM-EX forwarding for ALU operands as well as
 forwarding into branch-register (BR) and CBZ comparisons.
 `BLT_FlagRegister.sv` latches the negative/overflow flags for one extra
 cycle to account for B.LT's condition now depending on a SUBS a stage
-earlier. See [Known limitations](#known-limitations) for a real, verified
-gap: a correct `HazardDetection` module exists but isn't wired into the
+earlier. See [Known limitations / next steps](#known-limitations--next-steps)
+for a real, verified gap: a correct `HazardDetection` module exists but isn't wired into the
 pipeline. `benchmarks/` holds `.arm` test programs exercising this CPU —
 immediate/flag arithmetic, branches (`B`/`CBZ`/`B.LT`), memory access
 (`LDUR`/`STUR`), function calls (`BL`/`BR`), a forwarding stress test, a
